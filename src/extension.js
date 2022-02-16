@@ -1,3 +1,7 @@
+// Origonal: https://github.com/schuhumi/gnome-shell-extension-onboard-integration
+// Forked by PeterPorker3 
+// https://github.com/PeterPorker3/gnome-shell-extension-onboard-integration/
+
 
 const St = imports.gi.St;
 const Main = imports.ui.main;
@@ -36,15 +40,17 @@ function init() {
 }
 
 function enable() {
-    showBackup = Keyboard.prototype['_show']
-    Keyboard.prototype['_show'] = function(monitor) {
+    showBackup = Keyboard.prototype['_open']
+    Keyboard.prototype['_open'] = function(monitor) {
         if (!this._keyboardRequested)
             return;
 
         Main.layoutManager.keyboardIndex = monitor;
-        if( Main.actionMode == 1) //1=Shell.ActionMode.NORMAL) // No activity overview etc.
+        log("ACTION MODE: " + Main.actionMode);
+        if( Main.actionMode == 1 || Main.actionMode == 2) //1=Shell.ActionMode.NORMAL) // No activity overview etc.
             { // hide caribou, show onboard
-                this._hideSubkeys();
+                log("THE DOGE SAYS ONBOARD SHOULD BE SHOWN");
+                //this._hideSubkeys();
                 Main.layoutManager.hideKeyboard();
 
                 OnbProxy.ShowSync();   
@@ -54,27 +60,27 @@ function enable() {
             { // hide onboard, show caribou
                 OnbProxy.HideSync();
 
-                this._redraw();
+                //this._redraw();
                 Main.layoutManager.showKeyboard();
             }
-        this._destroySource();
+        //this._destroySource();
     }
 
-    hideBackup = Keyboard.prototype['_hide']
-    Keyboard.prototype['_hide'] = function() {
+    hideBackup = Keyboard.prototype['_close']
+    Keyboard.prototype['_close'] = function() {
         OnbProxy.HideSync();
         if (this._keyboardRequested)
             return;
 
-        this._hideSubkeys();
+        //this._hideSubkeys();
         Main.layoutManager.hideKeyboard();
-        this._createSource();
+        //this._createSource();
     }
 
-    GLib.spawn_command_line_async( "onboard", null ); // Start onboard
+    GLib.spawn_command_line_async( "onboard" ); // Start onboard
 }
 
 function disable() {
-    Keyboard.prototype['_show'] = showBackup
-    Keyboard.prototype['_hide'] = hideBackup
+    Keyboard.prototype['_open'] = showBackup
+    Keyboard.prototype['_close'] = hideBackup
 }
