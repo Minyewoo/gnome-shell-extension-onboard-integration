@@ -1,1 +1,7 @@
-{"uuid": "onboardintegration@helmsdeephost.com", "name": "GNOME Onboard Integration", "description": "Replaces Gnome's default virtual keyboard with Onboard", "shell-version": ["3.36"]}
+{
+  "uuid": "onboardintegration@helmsdeephost.com", 
+  "name": "GNOME Onboard Integration", 
+  "description": "Replaces Gnome's default virtual keyboard with Onboard", 
+  "shell-version": ["3.36"]
+  "url": "https://github.com/PeterPorker3/gnome-shell-extension-onboard-integration/"
+}
