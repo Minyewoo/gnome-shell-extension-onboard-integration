@@ -7,5 +7,5 @@
 
 
 echo "creating zip..."
-zip -j onboardintegration\@helmsdeephost.com src/*
+zip -j onboardintegration\@helmsdeephost.com.zip src/*
 echo "done."
