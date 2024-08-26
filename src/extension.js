@@ -63,7 +63,7 @@ function enable() {
                 //this._redraw();
                 Main.layoutManager.showKeyboard();
             }
-        //this._destroySource();
+         //this._destroySource();
     }
 
     hideBackup = Keyboard.prototype['_close']
@@ -77,7 +77,7 @@ function enable() {
         //this._createSource();
     }
 
-    GLib.spawn_command_line_async( "onboard" ); // Start onboard
+    // GLib.spawn_command_line_async( "onboard" ); // Start onboard
 }
 
 function disable() {
